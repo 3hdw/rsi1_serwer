@@ -80,7 +80,7 @@ public class ServerRPC {
         return methods;
     }
 
-    public int containsChar(String word, String sign, int responseTime) {
+    public String containsChar(String word, String sign, int responseTime) {
         System.out.println("... wywołano asy - odliczam");
         int contains = -2;
         try {
@@ -90,6 +90,6 @@ public class ServerRPC {
             e.printStackTrace();
             Thread.currentThread().interrupt();
         }
-        return contains;
+        return String.valueOf(contains);
     }
 }
