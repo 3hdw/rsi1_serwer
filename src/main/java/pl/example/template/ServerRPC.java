@@ -70,12 +70,12 @@ public class ServerRPC {
         methods.add(
                 new Method("containsChar(String word, String sign, int responseTime)",
                         Arrays.asList("word - parametr", "sign - parametr, int - parametr"),
-                        "Funkcja sprawdzająca czy sign znajduje się w word")
+                        "Funkcja sprawdzajaca czy sign znajduje sie w word")
         );
         methods.add(
                 new Method("isStrongPassword(String password)",
                         Arrays.asList("password - parametr"),
-                        "Funkcja sprawdzająca siłe hasła")
+                        "Funkcja sprawdzajaca sile hasla")
         );
         return methods;
     }
