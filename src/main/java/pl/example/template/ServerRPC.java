@@ -11,28 +11,28 @@ import java.util.List;
 public class ServerRPC {
 
     public static void main(String args[]) {
-        try{
+        try {
             System.out.println("Startuje Serwer XML-RPC...");
             int port = 8080;
             WebServer webServer = new WebServer(port);
-            webServer.addHandler("MojSerwer",new ServerRPC());
+            webServer.addHandler("MojSerwer", new ServerRPC());
             System.out.println("Serwer wystartował pomyślnie.");
-            System.out.println("Serwer nasłuchuje na porice: "+port);
+            System.out.println("Serwer nasłuchuje na porice: " + port);
             System.out.println("Aby zatrzymać serwer naciśnij ctrl+c");
             webServer.start();
-        }catch (Exception e){
-            System.err.println("Serwer XML-RPC: "+e);
+        } catch (Exception e) {
+            System.err.println("Serwer XML-RPC: " + e);
         }
     }
 
     public String show() {
         StringBuilder stringBuilder = new StringBuilder();
-        for(Method m:getMethods()){
+        for (Method m : getMethods()) {
             stringBuilder.append(m.getSignature());
             stringBuilder.append("\t");
             stringBuilder.append("|");
             stringBuilder.append("\t");
-            for(String param: m.getParams()){
+            for (String param : m.getParams()) {
                 stringBuilder.append(param);
                 stringBuilder.append("\t");
             }
@@ -42,7 +42,7 @@ public class ServerRPC {
             stringBuilder.append("\n");
         }
         String response = stringBuilder.toString();
-        return response.substring(0,response.length()-1);
+        return response.substring(0, response.length() - 1);
     }
 
     public boolean isStrongPassword(String pass) {
@@ -50,16 +50,16 @@ public class ServerRPC {
         boolean containsNumber = false;
         boolean containsCapitalLetter = false;
 
-        if(pass.length() >= minLength) {
-            for(int i = 0; i < pass.length(); i++) {
+        if (pass.length() >= minLength) {
+            for (int i = 0; i < pass.length(); i++) {
                 char sign = pass.charAt(i);
-                if(!containsNumber)
+                if (!containsNumber)
                     containsNumber = Character.isDigit(sign);
-                if(!containsCapitalLetter)
+                if (!containsCapitalLetter)
                     containsCapitalLetter = Character.isUpperCase(sign);
             }
 
-            if(containsNumber && containsCapitalLetter)
+            if (containsNumber && containsCapitalLetter)
                 return true;
         }
         return false;
@@ -77,6 +77,10 @@ public class ServerRPC {
                         Arrays.asList("password - parametr"),
                         "Funkcja sprawdzajaca sile hasla")
         );
+        methods.add(new Method("add(int x, int y)",
+                Arrays.asList("x - parametr", "y - parametr"),
+                "Funkcja dodajaca inty")
+        );
         return methods;
     }
 
@@ -91,5 +95,9 @@ public class ServerRPC {
             Thread.currentThread().interrupt();
         }
         return String.valueOf(contains);
+    }
+
+    public String add(int x, int y) {
+        return String.valueOf(x + y);
     }
 }
